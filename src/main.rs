@@ -41,7 +41,7 @@ fn request_with_main_thread() {
         .collect::<Vec<i32>>()
         .iter()
         .for_each(|_| match send_request(&client) {
-            Ok(text) => output1(text.as_str()),
+            Ok((thread_id, text)) => output2(thread_id, text.as_str()),
             Err(error) => output1(format!("{:?}", error).as_str()),
         });
 
@@ -49,11 +49,11 @@ fn request_with_main_thread() {
     output1(format!("END: {}", spent_time.as_millis()).as_str())
 }
 
-fn send_request(client: &Client) -> ResultWithError<String> {
+fn send_request(client: &Client) -> ResultWithError<(ThreadId, String)> {
     let mut response = client
         .get(Url::parse("http://localhost:9000/timestamp").unwrap())
         .send()?;
-    Ok(response.text()?)
+    Ok((thread::current().id(), response.text()?))
 }
 
 fn request_with_multi_thread() {
