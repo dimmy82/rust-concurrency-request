@@ -1,5 +1,3 @@
-#![feature(async_closure)]
-
 use failure::Fail;
 use futures::executor::block_on;
 use futures01::{future, Future};

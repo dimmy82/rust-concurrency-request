@@ -8,7 +8,6 @@ edition = "2018"
 
 [dependencies]
 reqwest = "0.9.20"
-rayon = "1.1.0"
 tokio-threadpool = "0.1.15"
 futures01 = "0.1.28"
 futures-preview = { version = "0.3.0-alpha.18", features = ["io-compat"] }
